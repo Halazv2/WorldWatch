@@ -1,7 +1,8 @@
+import Layout from './layouts';
 const App = () => {
   return (
-    <div>
-      <h1 className="text-indigo-600">React App</h1>
+    <div className="max-w-6xl mx-auto h-auto">
+      <Layout />
     </div>
   );
 };
