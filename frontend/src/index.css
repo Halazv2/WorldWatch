@@ -1,4 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,700;1,400&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: 'Times New Roman', serif;
+}
+p {
+  font-family: 'Times New Roman';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+
+
+.slide-in {
+  animation: slideIn 0.5s forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

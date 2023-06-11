@@ -4,14 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Beige (#DDD0C8), dark grey (#323232)
-        primary: '#DDD0C8',
-        secondary: '#323232',
+        primary: '#fff',
+        primaryLight: '#c56a4a',
+        secondary: '#DA000D',
+        tertiary: '#fffbf0',
         // Light grey (#F5F5F5), dark grey (#323232)
-        light: '#F5F5F5',
-        dark: '#323232'
+        light: '#2d2d2d',
+        dark: '#222222'
       }
     }
   },
+  // eslint-disable-next-line no-undef
   plugins: []
 };
