@@ -1,12 +1,11 @@
-import React from 'react';
 import Banner from '../components/Banner';
-import Articles from '../components/Articles';
+import ArticlesList from '../components/ArticlesList';
 
 function Home() {
   return (
     <div className="w-full h-full">
       <Banner />
-      <Articles />
+      <ArticlesList />
     </div>
   );
 }

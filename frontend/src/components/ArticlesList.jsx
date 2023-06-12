@@ -14,7 +14,7 @@ const files = [
   }
 ];
 
-export default function Articles() {
+export default function ArticlesList() {
   return (
     <Container className="flex flex-col gap-4 h-full">
       {files.map((file) => (
@@ -22,11 +22,7 @@ export default function Articles() {
           <img
             src={file.source}
             alt=""
-            className="pointer-events-none group-hover:opacity-75 
-          object-cover max-h-96 lg:max-h-full w-full lg:w-[300] lg:h-[235px] 
-          grayscale  hover:grayscale-0 transition-all duration-300 ease-in-out
-          
-          "
+            className="pointer-events-none group-hover:opacity-75 object-cover max-h-96 lg:max-h-full w-full lg:w-[300] lg:h-[235px] grayscale hover:grayscale-0 transition-all duration-300 ease-in-out"
           />
           <div className="flex flex-col gap-6 h-full">
             <div className="h-full gap-4 flex flex-col">
