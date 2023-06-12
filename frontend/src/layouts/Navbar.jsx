@@ -3,11 +3,7 @@ import { Dialog } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 import logo from '@/assets/image/logo.png';
-
-const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'Preferences', href: '#' }
-];
+import { navigation } from '@/constants';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
