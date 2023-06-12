@@ -10,35 +10,26 @@ WorldWatch is a news aggregator that allows users to view news from around the w
 
 ### Backend
 
-2. Run 
+1. cd into the backend directory and Build and run the Docker containers
 ```bash
-composer install
+docker-compose up 
 ```
 
-3. Create a .env file in the root directory of the backend folder and copy the contents of .env.example into it.
-
-4. Create a database and add the database name, username, and password to the .env file.
-
-5. Run 
+2. run migrations
 ```bash
-php artisan migrate:fresh --seed
-```
-
-6. Run 
-```bash
-php artisan serve
+docker-compose exec app php artisan migrate
 ```
 
 ### Frontend
 
-7. Run 
+1. cd into the frontend directory and run
 ```bash
-yarn 
+docker build -t frontend .
 ```
 
-8. Run 
+2. run the container
 ```bash
-yarn dev
+docker-compose up 
 ```
 
 ## Resources
@@ -48,14 +39,10 @@ yarn dev
 - [Tailwind CSS](https://tailwindcss.com/)
 - [News API](https://newsapi.org/)
 - [Heroicons](https://heroicons.com/)
-- [Google Fonts](https://fonts.google.com/)
 - [React Router](https://reactrouter.com/)
 - [Redux Toolkit](https://redux-toolkit.js.org/)
 - [Redux Toolkit Query](https://redux-toolkit.js.org/rtk-query/overview)
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
+- [Docker](https://www.docker.com/)
 
 ## Author
 
