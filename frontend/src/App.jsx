@@ -4,15 +4,20 @@ import Home from '@/pages/Home';
 import Login from '@/pages/Login';
 import Profile from '@/pages/Profile';
 import Article from '@/pages/Article';
+// import { useCheckAuthQuery } from './store/api/apiAuthSlice';
+// import { useEffect } from 'react';
+import { ProtectedRoute } from './ProtectedRoutes';
+
 const App = () => {
   return (
     <div className="mx-auto h-full w-full relative">
       <Layout>
         <Routes>
-          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/article/:id" element={<Article />} />
+          <Route path="/" element={<ProtectedRoute element={<Home />} />} />
+          <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
+          <Route path="/article/:id" element={<ProtectedRoute element={<Article />} />} />
+          <Route path="*" component={() => '404 NOT FOUND'} />
         </Routes>
       </Layout>
     </div>
