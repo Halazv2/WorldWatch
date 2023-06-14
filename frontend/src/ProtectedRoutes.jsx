@@ -1,16 +1,30 @@
 import { useCheckAuthQuery } from './store/api/apiAuthSlice';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { React } from 'react';
-import { loginSuccess } from './store/modules/authSlice';
+import { useEffect } from 'react';
+import { loginSuccess, logoutSuccess } from './store/modules/authSlice';
+import { useSelector } from 'react-redux';
 
 // eslint-disable-next-line react/prop-types
 export const ProtectedRoute = ({ element }) => {
-  const { data: isAuthenticated, isLoading } = useCheckAuthQuery();
+  const { data, isLoading, isError, isSuccess } = useCheckAuthQuery();
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const currentPath = window.location.pathname;
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  useEffect(() => {
+    dispatch(isError ? logoutSuccess() : loginSuccess(data));
+  }, [dispatch, data, isError, isLoggedIn]);
+
+  isLoading ? <div>Loading...</div> : null;
+  isError ? <Navigate to="/login" /> : null;
+
+  if (!isSuccess && currentPath !== '/login') {
+    return <Navigate to="/login" />;
+  }
+  if (isSuccess && currentPath === '/login') {
+    return <Navigate to="/" />;
   }
 
-  return isAuthenticated ? element : <Navigate to="/login" replace />;
+  return element;
 };
