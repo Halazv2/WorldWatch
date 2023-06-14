@@ -19,7 +19,7 @@ export default function Navbar() {
           <a href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <img className="h-16 w-auto" src={logo} alt="" loading="lazy" />
-            {isLoggedIn} 
+            {isLoggedIn}
           </a>
         </div>
         <div className="flex lg:hidden">
@@ -70,7 +70,14 @@ export default function Navbar() {
                 ))}
               </div>
               <div className="py-6">
-                <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-dark ">
+                <Link
+                  to="/login"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    handleLogout();
+                  }}
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-dark "
+                >
                   Log out
                 </Link>
               </div>
