@@ -47,9 +47,7 @@ export default function Login() {
 
             <div className="flex items-center justify-end">
               <div className="text-sm leading-6">
-                <a className="font-semibold text-dark hover:text-light">
-                  Forgot password?
-                </a>
+                <a className="font-semibold text-dark hover:text-light">Forgot password?</a>
               </div>
             </div>
 
@@ -63,7 +61,7 @@ export default function Login() {
               </button>
             </div>
           </form>
-          {isError && <p className='text-secondary'>{error.data.message}</p>}
+          {isError && <p className="text-secondary">{error.data.message}</p>}
           <p className="text-center text-sm leading-6 text-gray-500">
             Not a member?{' '}
             <a href="#" className="font-semibold text-dark hover:text-light">
