@@ -1,17 +1,17 @@
 import { Route, Routes } from 'react-router';
 import { ProtectedRoute } from './ProtectedRoutes';
+import { Home, Login, Register, Profile, Article } from '@/pages';
 import Layout from '@/layouts';
-import Home from '@/pages/Home';
-import Login from '@/pages/Login';
-import Profile from '@/pages/Profile';
-import Article from '@/pages/Article';
 
 const App = () => {
+
+
   return (
     <div className="mx-auto h-full w-full relative">
       <Layout>
         <Routes>
           <Route path="/login" element={<ProtectedRoute element={<Login />} />} />
+          <Route path="/register" element={<ProtectedRoute element={<Register />} />} />
           <Route path="/" element={<ProtectedRoute element={<Home />} />} />
           <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
           <Route path="/article/:id" element={<ProtectedRoute element={<Article />} />} />

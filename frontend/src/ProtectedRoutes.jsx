@@ -18,11 +18,12 @@ export const ProtectedRoute = ({ element }) => {
 
   isLoading ? <div>Loading...</div> : null;
   isError ? <Navigate to="/login" /> : null;
+  const authPath = ['/login', '/register'];
 
-  if (!isSuccess && currentPath !== '/login') {
+  if (!isSuccess && !authPath.includes(currentPath)) {
     return <Navigate to="/login" />;
   }
-  if (isSuccess && currentPath === '/login') {
+  if (isSuccess && authPath.includes(currentPath)) {
     return <Navigate to="/" />;
   }
 

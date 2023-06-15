@@ -4,7 +4,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 import logo from '@/assets/image/logo.png';
 import { navigation } from '@/constants';
-import { useLogout } from '@/hooks/useLogout';
+import { useLogout } from '@/hooks/auth/useLogout';
 import { useSelector } from 'react-redux';
 
 export default function Navbar() {

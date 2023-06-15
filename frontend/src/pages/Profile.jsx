@@ -1,8 +1,11 @@
 import { PaperClipIcon } from '@heroicons/react/20/solid';
+import { useSelector } from 'react-redux';
+import Container from '@/components/container';
 
 export default function Profile() {
+  const { user } = useSelector((state) => state.auth);
   return (
-    <>
+    <Container className="flex flex-col gap-4 h-full">
       <div className="px-4 sm:px-0">
         <h3 className="text-base font-semibold leading-7 text-gray-900">User Profile</h3>
         <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and information.</p>
@@ -12,7 +15,7 @@ export default function Profile() {
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">Full name</dt>
             <dd className="mt-1 flex text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              <span className="flex-grow">Margot Foster</span>
+              <span className="flex-grow">{user.full_name}</span>
               <span className="ml-4 flex-shrink-0">
                 <button type="button" className="rounded-md bg-white font-medium text-indigo-600 hover:text-indigo-500">
                   Update
@@ -23,7 +26,9 @@ export default function Profile() {
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">Email address</dt>
             <dd className="mt-1 flex text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              <span className="flex-grow">margotfoster@example.com</span>
+              <span className="flex-grow">
+                <a href={`mailto:${user.email}`}>{user.email}</a>
+              </span>
               <span className="ml-4 flex-shrink-0">
                 <button type="button" className="rounded-md bg-white font-medium text-indigo-600 hover:text-indigo-500">
                   Update
@@ -59,6 +64,6 @@ export default function Profile() {
           </div>
         </dl>
       </div>
-    </>
+    </Container>
   );
 }

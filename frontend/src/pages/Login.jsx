@@ -1,5 +1,6 @@
 import logo from '@/assets/image/logo.png';
-import { useLogin } from '@/hooks/useLogin';
+import { useLogin } from '@/hooks/auth/useLogin';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const { state, isLoading, isError, error, handleChange, handleSubmit } = useLogin();
@@ -63,10 +64,9 @@ export default function Login() {
           </form>
           {isError && <p className="text-secondary">{error.data.message}</p>}
           <p className="text-center text-sm leading-6 text-gray-500">
-            Not a member?{' '}
-            <a href="#" className="font-semibold text-dark hover:text-light">
-              Sign up now
-            </a>
+            <Link to="/register">
+              Not a member? <span className="font-semibold text-dark hover:text-light">Sign up now</span>
+            </Link>
           </p>
         </div>
       </div>
