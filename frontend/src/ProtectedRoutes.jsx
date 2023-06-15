@@ -11,6 +11,7 @@ export const ProtectedRoute = ({ element }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const currentPath = window.location.pathname;
+  const authPath = ['/login', '/register'];
 
   useEffect(() => {
     dispatch(isError ? logoutSuccess() : loginSuccess(data));
@@ -18,7 +19,6 @@ export const ProtectedRoute = ({ element }) => {
 
   isLoading ? <div>Loading...</div> : null;
   isError ? <Navigate to="/login" /> : null;
-  const authPath = ['/login', '/register'];
 
   if (!isSuccess && !authPath.includes(currentPath)) {
     return <Navigate to="/login" />;
