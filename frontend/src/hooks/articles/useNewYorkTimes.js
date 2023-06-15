@@ -1,20 +1,25 @@
 import { useNewYorkTimesQuery } from '@/store/api/apiNewYorkTimesSlice';
 import { useDispatch } from 'react-redux';
-import { fetchNewsSuccess } from '@/store/modules/newsSlice';
+import { setArticleBanner } from '@/store/modules/newsSlice';
+import React from 'react';
 
 export function useNewYorkTimesApi(section) {
   const { data, error, isLoading } = useNewYorkTimesQuery(section);
-
   const dispatch = useDispatch();
 
-  try {
-    dispatch(fetchNewsSuccess(data.results[0]));
-  } catch (err) {
-    console.error(err);
-  }
+  React.useEffect(() => {
+    if (data?.results?.length) {
+      try {
+        const articlesWithImages = data?.results.filter((article) => article.multimedia && article.multimedia.length > 0);
+        dispatch(setArticleBanner(articlesWithImages));
+      } catch (err) {
+        console.error('Error dispatching setArticleBanner:', err);
+      }
+    }
+  }, [data, dispatch]);
 
   return {
-    data: data?.results[6],
+    data: data?.results.filter((article) => article.multimedia && article.multimedia.length > 0),
     error,
     isLoading
   };
