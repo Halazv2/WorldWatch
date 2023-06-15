@@ -1,19 +1,37 @@
+import { useNewYorkTimesApi } from '../hooks/articles/useNewYorkTimes';
 import Container from './container';
+import { useSelector } from 'react-redux';
 
 function Banner() {
+  const section = useSelector((state) => state.news.section);
+  const { data, error, isLoading } = useNewYorkTimesApi(section);
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (error) return <div>Something went wrong...</div>;
+  console.log(data);
   return (
     <Container className="flex flex-col gap-3">
       <div>
-        <h1 className="text-3xl font-bold">The monthly meeting rocked</h1>
-        <p className="mt-4 text-gray-500 ">
-          As with (almost) every last Friday of the month, we had our typical monthly meeting with the entire team. We received the sad news that, this month, the sales target —
-          probably — will not be met. It was also announced that our 30th branch will open next month. Our CEO announced that with the arrival of the 50 new employees,the amount of
-          coffee consumed increased slightly.
-        </p>
+        <a href={data?.url} target="_blank" rel="noreferrer">
+          <h1 className="text-3xl font-bold">{data ? data?.title : ''}</h1>
+        </a>
+        <p className="mt-4 text-gray-500 ">{data && data?.abstract}</p>
       </div>
-      <div className="bg-cover bg-center h-full text-white py-24 px-10 object-fill bg-[url(https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)]"></div>
+      <img
+        src={data?.multimedia[1].url}
+        alt={data?.multimedia[1].caption}
+        loading="lazy"
+        className="pointer-events-none group-hover:opacity-75 object-cover max-h-96 lg:max-h-full w-full lg:w-full lg:h-[350px] grayscale hover:grayscale-0 transition-all duration-300 ease-in-out"
+      />
+
       <div className="flex justify-center">
-        <p>Photo of the online call via Google Meet held on Friday, August 26, 2022.</p>
+        <p>
+          <span className="font-bold">photo {data && data?.multimedia[1].copyright}</span> | {data?.section} | {data?.byline} |{' '}
+          <span>
+            {data && data?.published_date ? new Date(data?.published_date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : ''}
+          </span>
+        </p>
       </div>
     </Container>
   );
