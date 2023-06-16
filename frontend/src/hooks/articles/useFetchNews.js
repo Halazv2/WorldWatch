@@ -7,9 +7,10 @@ import { setArticles } from '../../store/modules/newsSlice';
 export async function useFetchNews() {
   const dispatch = useDispatch();
   const selectedSource = useSelector((state) => state.news.api);
+  const searchQuery = useSelector((state) => state.news.search);
 
-  const { data: gNewsData, error: gNewsError, isLoading: gNewsIsLoading } = useGNewsQuery();
-  const { data: newsApiData, error: newsApiError, isLoading: newsApiIsLoading } = useNewsApiQuery();
+  const { data: gNewsData, error: gNewsError, isLoading: gNewsIsLoading } = useGNewsQuery(searchQuery);
+  const { data: newsApiData, error: newsApiError, isLoading: newsApiIsLoading } = useNewsApiQuery(searchQuery);
 
   useEffect(() => {
     let payload = [];
@@ -24,7 +25,7 @@ export async function useFetchNews() {
 
       dispatch(setArticles(payload));
     }
-  }, [selectedSource, newsApiData, gNewsData, dispatch]);
+  }, [selectedSource, newsApiData, gNewsData, dispatch, searchQuery]);
   return {
     isLoading: newsApiIsLoading || gNewsIsLoading,
     error: newsApiError || gNewsError

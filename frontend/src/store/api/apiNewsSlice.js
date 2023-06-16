@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: import.meta.env.VITE_NEWS_API_URL + import.meta.env.VITE_NEWS_API_KEY
+  baseUrl: import.meta.env.VITE_NEWS_API_URL
 });
 
 export const apiNewsSlice = createApi({
@@ -9,7 +9,7 @@ export const apiNewsSlice = createApi({
   baseQuery,
   endpoints: (builder) => ({
     newsApi: builder.query({
-      query: () => ``
+      query: (query) => `${query ? 'top-headlines?' : 'everything?'}q=${query ? query : 'None'}&apiKey=${import.meta.env.VITE_NEWS_API_KEY}`
     })
   })
 });
