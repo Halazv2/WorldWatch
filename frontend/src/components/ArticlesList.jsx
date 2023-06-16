@@ -40,7 +40,7 @@ export default function ArticlesList({ articles }) {
                 <p className="mt-4 text-gray-500 ">{article.description}</p>
               </div>
               <div className="flex justify-end w-full h-full items-end">
-                <Link to={`/article/${article.source.id}-${article.source.name}`} state={{ article: article }} className="text-sm font-medium text-secondary">
+                <Link to={`/article/${article.title.split(' ').join('-')}`} state={{ article: article }} className="text-sm font-medium text-secondary">
                   Read more <span aria-hidden="true">→</span>
                 </Link>
               </div>
@@ -48,7 +48,6 @@ export default function ArticlesList({ articles }) {
           </div>
         ))}
 
-      {/* Pagination */}
       <div className="flex justify-center">
         {Array.from({ length: totalPages }, (_, index) => (
           <button
