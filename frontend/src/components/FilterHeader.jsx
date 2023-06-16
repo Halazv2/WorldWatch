@@ -1,15 +1,17 @@
 import Container from './container';
 import { useFilter } from '../hooks/articles/useFilter';
+import { useState } from 'react';
 
 export default function FilterHeader() {
   const { handleApi, handleSection, handleSearch } = useFilter();
+  const [search, setSearch] = useState('');
 
   return (
     <Container className="flex flex-col gap-4 h-full">
       <div className="flex flex-col gap-4">
         <div className="flex flex-row gap-4 w-full">
           <form className="flex flex-row gap-4 w-full">
-            <input className="w-full p-2 border border-gray-300 rounded-md" type="text" placeholder="Search" onChange={(e) => handleSearch(e)} />
+            <input className="w-full p-2 border border-gray-300 rounded-md" type="text" placeholder="Search" onChange={(e) => setSearch(e.target.value)} />
             <select className="w-1/4 p-2 border border-gray-300 rounded-md" onChange={(e) => handleApi(e.target.value)}>
               <option value="all">all</option>
               <option value="newsapi">NewsApi</option>
@@ -20,7 +22,14 @@ export default function FilterHeader() {
               <option value="us">us</option>
               <option value="world">world</option>
             </select>
-            <button className="p-2 text-white bg-dark rounded-md" type="submit">
+            <button
+              className="p-2 text-white bg-dark rounded-md"
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+                handleSearch(search);
+              }}
+            >
               Search
             </button>
           </form>
