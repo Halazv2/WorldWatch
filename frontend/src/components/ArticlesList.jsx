@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom';
 import Container from './container';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export default function ArticlesList({ articles }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,7 +33,12 @@ export default function ArticlesList({ articles }) {
                 <h1 className="text-3xl font-bold">{article.title}</h1>
                 <p>
                   <span className="text-gray-500">
-                    {new Date(article.publishedAt).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                    {new Date(article.publishedAt).toLocaleDateString('en-US', {
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
                   </span>{' '}
                   <span className="text-gray-500">·</span> <span className="text-gray-900 font-bold">{article.author ? article.author : article.source.name}</span>
                 </p>
@@ -49,15 +54,38 @@ export default function ArticlesList({ articles }) {
         ))}
 
       <div className="flex justify-center">
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index}
-            onClick={() => handlePageChange(index + 1)}
-            className={`mx-2 px-3 py-1 rounded-full ${currentPage === index + 1 ? 'bg-gray-500 text-white' : 'bg-gray-200 text-gray-500'}`}
-          >
-            {index + 1}
-          </button>
-        ))}
+        {Array.from({ length: totalPages }, (_, index) => {
+          // Determine the set of pages to display
+          const startPage = Math.floor((currentPage - 1) / 10) * 10;
+          const endPage = Math.min(startPage + 10, totalPages);
+
+          // Generate buttons for the current set of pages
+          if (index === startPage && startPage > 0) {
+            return (
+              <button key={index} onClick={() => handlePageChange(startPage)} className="mx-2 px-3 py-1 rounded-full bg-gray-200 text-gray-500">
+                {startPage}
+              </button>
+            );
+          } else if (index === endPage - 1 && endPage < totalPages) {
+            return (
+              <button key={index} onClick={() => handlePageChange(endPage)} className="mx-2 px-3 py-1 rounded-full bg-gray-200 text-gray-500">
+                {endPage}
+              </button>
+            );
+          } else if (index >= startPage && index < endPage) {
+            return (
+              <button
+                key={index}
+                onClick={() => handlePageChange(index + 1)}
+                className={`mx-2 px-3 py-1 rounded-full ${currentPage === index + 1 ? 'bg-gray-500 text-white' : 'bg-gray-200 text-gray-500'}`}
+              >
+                {index + 1}
+              </button>
+            );
+          } else {
+            return null;
+          }
+        })}
       </div>
     </Container>
   );
