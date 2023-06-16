@@ -3,11 +3,11 @@ import { useFilter } from '../hooks/articles/useFilter';
 import { useState } from 'react';
 
 export default function FilterHeader() {
-  const { handleApi, handleSection, handleSearch } = useFilter();
+  const { handleApi, handleSection, handleSearch, handleClear } = useFilter();
   const [search, setSearch] = useState('');
 
   return (
-    <Container className="flex flex-col gap-4 h-full">
+    <Container className="flex flex-col gap-4 h-full mt-8">
       <div className="flex flex-col gap-4">
         <div className="flex flex-row gap-4 w-full">
           <form className="flex flex-row gap-4 w-full">
@@ -36,7 +36,9 @@ export default function FilterHeader() {
           <div className="flex flex-row gap-4">
             <button
               className="flex w-full justify-center items-center rounded-md bg-secondary px-3 py-1.5 text-sm font-semibold leading-6 text-white hover:bg-blacktransition ease-in-out duration-150"
-              onClick={() => {}}
+              onClick={() => {
+                handleClear();
+              }}
             >
               Clear
             </button>
