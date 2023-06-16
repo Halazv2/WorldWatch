@@ -10,12 +10,10 @@ export default function FilterHeader() {
         <div className="flex flex-row gap-4 w-full">
           <form className="flex flex-row gap-4 w-full">
             <input className="w-full p-2 border border-gray-300 rounded-md" type="text" placeholder="Search" onChange={(e) => handleSearch(e)} />
-            <select
-              className="w-1/4 p-2 border border-gray-300 rounded-md"
-              onChange={(e) => handleApi(e.target.value === 'NewsApi' ? 'https://newsapi.org/v2/everything?q=' : 'https://bing-news-search1.p.rapidapi.com/news/search?q=')}
-            >
-              <option value="NewsApi">NewsApi</option>
-              <option value="GNews">GNews</option>
+            <select className="w-1/4 p-2 border border-gray-300 rounded-md" onChange={(e) => handleApi(e.target.value)}>
+              <option value="all">all</option>
+              <option value="newsapi">NewsApi</option>
+              <option value="gnews">GNews</option>
             </select>
             <select className="w-1/4 p-2 border border-gray-300 rounded-md" onChange={(e) => handleSection(e.target.value === 'home' ? '' : e.target.value)}>
               <option value="science">science</option>
