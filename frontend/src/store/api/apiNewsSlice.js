@@ -8,10 +8,10 @@ export const apiNewsSlice = createApi({
   reducerPath: 'apiNewsSlice',
   baseQuery,
   endpoints: (builder) => ({
-    articles: builder.query({
+    newsApi: builder.query({
       query: () => ``
     })
   })
 });
 
-export const { useArticlesQuery } = apiNewsSlice;
+export const { useNewsApiQuery } = apiNewsSlice;

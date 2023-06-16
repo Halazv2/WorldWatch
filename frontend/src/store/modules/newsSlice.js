@@ -8,11 +8,11 @@ const articleSlice = createSlice({
     article: {},
     loading: false,
     search: '',
-    api: '',
+    api: 'all',
     section: 'science'
   },
   reducers: {
-    fetchNewsSuccess: (state, action) => {
+    setArticles: (state, action) => {
       state.articles = action.payload;
     },
     setArticle: (state, action) => {
@@ -35,11 +35,11 @@ const articleSlice = createSlice({
     },
     clearFilter: (state) => {
       state.search = '';
-      state.api = '';
+      state.api = 'all';
       state.section = 'science';
     }
   }
 });
 
-export const { fetchNewsSuccess, setArticle, setLoading, setSearch, setApi, setArticleBanner, setSection, clearFilter } = articleSlice.actions;
+export const { setArticles, setArticle, setLoading, setSearch, setApi, setArticleBanner, setSection, clearFilter } = articleSlice.actions;
 export default articleSlice.reducer;
