@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom';
 import Container from './container';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function ArticlesList({ articles }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,6 +17,14 @@ export default function ArticlesList({ articles }) {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+  const startPage = Math.floor((currentPage - 1) / 10) * 10;
+  const endPage = Math.min(startPage + 10, totalPages);
+
+  const api = useSelector((state) => state.news.api);
+  const search = useSelector((state) => state.news.search);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [api, search]);
 
   return (
     <Container className="flex flex-col gap-4 h-full">
@@ -59,32 +68,30 @@ export default function ArticlesList({ articles }) {
           const startPage = Math.floor((currentPage - 1) / 10) * 10;
           const endPage = Math.min(startPage + 10, totalPages);
 
-          // Generate buttons for the current set of pages
-          if (index === startPage && startPage > 0) {
-            return (
-              <button key={index} onClick={() => handlePageChange(startPage)} className="mx-2 px-3 py-1 rounded-full bg-gray-200 text-gray-500">
-                {startPage}
-              </button>
-            );
-          } else if (index === endPage - 1 && endPage < totalPages) {
-            return (
-              <button key={index} onClick={() => handlePageChange(endPage)} className="mx-2 px-3 py-1 rounded-full bg-gray-200 text-gray-500">
-                {endPage}
-              </button>
-            );
-          } else if (index >= startPage && index < endPage) {
-            return (
-              <button
-                key={index}
-                onClick={() => handlePageChange(index + 1)}
-                className={`mx-2 px-3 py-1 rounded-full ${currentPage === index + 1 ? 'bg-gray-500 text-white' : 'bg-gray-200 text-gray-500'}`}
-              >
-                {index + 1}
-              </button>
-            );
-          } else {
-            return null;
-          }
+          return (
+            <React.Fragment key={index}>
+              {index === 0 && startPage > 0 && (
+                <button onClick={() => handlePageChange(startPage)} className="mx-2 px-3 py-1 rounded-full bg-gray-200 text-gray-500">
+                  1
+                </button>
+              )}
+              {index === 0 && startPage > 1 && <span className="mx-2">...</span>}
+              {index >= startPage && index < endPage && (
+                <button
+                  onClick={() => handlePageChange(index + 1)}
+                  className={`mx-2 px-3 py-1 rounded-full ${currentPage === index + 1 ? 'bg-gray-500 text-white' : 'bg-gray-200 text-gray-500'}`}
+                >
+                  {index + 1}
+                </button>
+              )}
+              {index === totalPages - 1 && endPage < totalPages && <span className="mx-2">...</span>}
+              {index === totalPages - 1 && endPage < totalPages - 1 && (
+                <button onClick={() => handlePageChange(totalPages)} className="mx-2 px-3 py-1 rounded-full bg-gray-200 text-gray-500">
+                  {totalPages}
+                </button>
+              )}
+            </React.Fragment>
+          );
         })}
       </div>
     </Container>

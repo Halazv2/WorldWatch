@@ -1,4 +1,4 @@
-import { setApi, setSearch, setSection } from '../../store/modules/newsSlice';
+import { clearFilter, setApi, setSearch, setSection } from '../../store/modules/newsSlice';
 import { useDispatch } from 'react-redux';
 
 export function useFilter() {
@@ -16,9 +16,14 @@ export function useFilter() {
     dispatch(setSection(section));
   };
 
+  const handleClear = () => {
+    dispatch(clearFilter());
+  };
+
   return {
     handleApi,
     handleSearch,
-    handleSection
+    handleSection,
+    handleClear
   };
 }
