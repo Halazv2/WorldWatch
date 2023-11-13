@@ -1,33 +1,33 @@
-version: '3.8'
+version: "3.8"
 services:
-  backend:
-    build: 
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 8000:8000
-    volumes:
-      - .:/app
-    depends_on:
-      - db
-    networks:
-      - app-network
+    backend:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - 8000:8000
+        volumes:
+            - .:/app
+        depends_on:
+            - db
+        networks:
+            - app-network
 
-  db:
-    image: mysql:5.7
-    environment:
-     MYSQL_DATABASE: innoscripta
-     MYSQL_ALLOW_EMPTY_PASSWORD: true
+    db:
+        image: mysql:5.7
+        platform: linux/amd64
+        environment:
+            MYSQL_DATABASE: innoscripta
+            MYSQL_ALLOW_EMPTY_PASSWORD: true
 
-    volumes:
-      - ./storage/dbdata:/var/lib/mysql
-    ports:
-      - 3306:3306
-    networks:
-      - app-network
-
+        volumes:
+            - ./storage/dbdata:/var/lib/mysql
+        ports:
+            - 3306:3306
+        networks:
+            - app-network
 
 #Docker Networks
 networks:
-  app-network:
-    driver: bridge
+    app-network:
+        driver: bridge
