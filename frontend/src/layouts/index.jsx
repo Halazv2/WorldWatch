@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import NavBar from './navbar';
+import NavBar from './Navbar';
 import Footer from './Footer';
 
 export default function Layout({ children }) {
