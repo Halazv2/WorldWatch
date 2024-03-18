@@ -17,8 +17,8 @@ export const ProtectedRoute = ({ element }) => {
     dispatch(isError ? logoutSuccess() : loginSuccess(data));
   }, [dispatch, data, isError, isLoggedIn]);
 
-  isLoading ? <div>Loading...</div> : null;
-  isError ? <Navigate to="/login" /> : null;
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <Navigate to="/login" />;
 
   if (!isSuccess && !authPath.includes(currentPath)) {
     return <Navigate to="/login" />;
